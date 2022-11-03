@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous"/>
+</h:head>
+<h:body>
+    <div class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="todo.xhtml"><span class="text-primary">My</span>Tasks </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h3>Add a new task</h3>
+            <h:form styleClass="form-group w-25">
+                <h:outputLabel>Task name: </h:outputLabel>
+                <h:inputText styleClass="form-control" value="#{task.input}" a:placeholder="Task..."
+                             a:type="text"></h:inputText>
+                <h:commandButton styleClass="btn btn-warning mt-1" value="Add new Task"
+                                 action="#{task.addTask(task.input)}"/>
+            </h:form>
+
+        <h3>Active Tasks</h3>
+        <ui:repeat value="#{task.active}" var="item" varStatus="i">
+            <div class="d-flex justify-content-between mt-1">
+                <span>#{item}</span>
+                <h:form>
+                    <h:commandButton styleClass="btn btn-success" value="Finish" action="#{task.finish(i.index)}"/>
+                </h:form>
+            </div>
+        </ui:repeat>
+        <h3>Finished Tasks</h3>
+        <ui:repeat value="#{task.done}" var="item" varStatus="j">
+            <div class="d-flex justify-content-between mt-1">
+                <span>#{item}</span>
+                <h:form>
+                    <h:commandButton styleClass="btn btn-danger" value="Delete" action="#{task.delete(j.index)}"/>
+                </h:form>
+
+            </div>
+        </ui:repeat>
+
+    </div>
+
+
+</h:body>
+</html>
